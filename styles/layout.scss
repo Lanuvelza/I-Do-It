@@ -4,7 +4,11 @@ body {
   background-color: #EEE;
   background-image: url("https://todoist.com/_next/static/images/header@2x_b52d8f7c7bf19d6c702569d1072ed6a2.webp");
   background-repeat: no-repeat;
-  background-size: auto auto;
+  background-size: cover;
+  background-origin: content-box;
+  background-blend-mode: overlay;
+
+
   h1 {
     color: #244751;
   }

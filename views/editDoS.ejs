@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>USERNAME Dashboard</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/userDash.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/editDoS.css" type="text/css" />
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <!-- Top Navbar -->
+  <nav>
+    <span class=appName>I-Do-It!</span>
+    <a>Add-A-Do</a>
+    <a>Logout</a>
+  </nav>
+  <!-- edit form -->
+  <div class="whole-container">
+    <h1>Edit your Note</h1>
+    <div class="editDoS-continer">
+      <form action="">
+
+        <label for="note">Note</label>
+        <input type="text" class="note-edit" name="Note" placeholder="Jot your ToDo">
+
+        <label for="category">Category</label>
+        <select class="category-edit" name="country">
+          <option value="books">Books</option>
+          <option value="movies">Movies</option>
+          <option value="restaurant">Restaurant</option>
+          <option value="product">Product</option>
+        </select>
+
+        <input type="submit" value="Submit">
+
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

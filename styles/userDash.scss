@@ -1,0 +1,29 @@
+.to-do-list {
+  // display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+  // align-self: center;
+  margin-top: 300px;
+}
+
+.to-do-list td, .to-do-list th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.to-do-list tr:nth-child(even){background-color: #f2f2f2;}
+
+.to-do-list tr:nth-child(odd){background-color: white;}
+
+.to-do-list tr:hover {background-color: #ddd;}
+
+.to-do-list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e44232;
+  color: white;
+}

@@ -54,6 +54,10 @@ app.get("/dash", (req, res) => {
   res.render("userDash");
 });
 
+app.get("/edit", (req, res) => {
+  res.render("editDoS");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
