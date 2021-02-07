@@ -45,10 +45,21 @@ The following steps are only for _one_ of the group members to perform.
 ## USER STORIES
 They have the form: As a ___, I want to _, because ____.
 
+As a user, I want to be able to create a todo list which categorizes my selections based on one of 4 categories because I thrive on being organized.
+As a user, I want to be able to see each individual list on its own, or a combination of lists together because sometimes I want to focus on specific tasks.
+As a user, I want to be able to change the category of a submission if it is incorrect because technology isn't perfect
+As a user, I want to be able to log in, log out, and change my profile because I want to customize my space.
+As a user, I shouldn't be able to access other user's lists because I do not own those todo lists.
+As a user, I shouldn't be able to change someone else's profile or log in as them because I do not own their user profile.
+If I am not logged in, I should not be able to do much at all because I need to be logged in for the app to work.
 
+## ROUTES
 
-
-
+/todos | GET
+/todos | POST
+/todos:id | GET 
+/todos:id/edit | GET
+/todos:id | DELETE
 
 
 
