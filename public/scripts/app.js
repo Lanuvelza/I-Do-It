@@ -54,7 +54,6 @@ $(() => {
       loadToDos();
       console.log('success');
       $('.note-add').val('');
-
     })
   });
 });
