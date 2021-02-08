@@ -4,7 +4,7 @@ $(document).ready(function() {
 //renders tweets on index.html
 const renderTweets = function(tweets) {
   for (const user of tweets) {
-    $('#tweets-container').prepend(createTweetElement(user)); 
+    $('#tweets-container').prepend(createTweetElement(user));
   }
 };
 
