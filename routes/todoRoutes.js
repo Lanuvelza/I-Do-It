@@ -46,8 +46,17 @@ module.exports = (db) => {
     INSERT INTO todos
     (user_id, category_id, title, created_date)
     VALUES
-    ($1, $2, $3, $4)
-    `,[user_id, category_id, title, created_date]);
+    ($1, $2, $3, $4);
+    `,[user_id, category_id, title, created_date])
+    .then(data => {
+      const todos = data.rows;
+      res.json({todos});
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
   return router;
