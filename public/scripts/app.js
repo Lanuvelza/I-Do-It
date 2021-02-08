@@ -1,3 +1,4 @@
+
 $(() => {
 //   $.ajax({
 //     method: "GET",
@@ -8,6 +9,7 @@ $(() => {
 //     }
 //   });
 
+  // creates a new todo row
   const createToDoElement = function(todos) {
     return markup = `<tr>
       <th>${todos.id}</th>
@@ -19,12 +21,14 @@ $(() => {
 
   };
 
+  // renders todos onto the page
   const renderToDos= function(todos) {
     for (const todo of todos) {
       $(".to-do-list").append(createToDoElement(todo));
     }
   };
 
+  // loads the todos from the database
   const loadToDos = function() {
     $.ajax({
       url: '/api/todos/',
@@ -38,22 +42,21 @@ $(() => {
 
   loadToDos();
 
-  const $button = $('.add-todo-btn');
-
-  $button.on('click', function(event) {
+  // adds a new todo onto the table
+  $('.add-todo-form').on('submit', function(event) {
     event.preventDefault();
     console.log("click");
-    const queryString = $('.note-add').serialize();
+    const queryString = $(this).serialize();
     $.ajax({
       url: '/api/todos',
       method: 'POST',
       data: queryString
     })
-    .then(function() {
-      $('.to-do-list').empty();
+    .done(() => {
+      $(".to-do-list").empty();
       loadToDos();
-      console.log('success');
-      $('.note-add').val('');
+      $(this.children[1]).val("");
     })
+    .fail(error => console.log(error));
   });
 });
