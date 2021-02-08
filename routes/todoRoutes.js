@@ -38,14 +38,18 @@ module.exports = (db) => {
 
   // inserts a new todo into the database
   router.post("/", (req, res) => {
-
-
-
-
-const id =
-
+    const user_id = 1;
+    const category_id = 1;
+    const title = req.body.new_todo;
+    const created_date = '07-07-2020';
+    db.query(`
+    INSERT INTO todos
+    (user_id, category_id, title, created_date)
+    VALUES
+    ($1, $2, $3, $4)
+    `,[user_id, category_id, title, created_date]);
+  });
 
   return router;
-
 
 };
