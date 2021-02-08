@@ -40,12 +40,9 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
 
 
-const id =   });
 
 
-const id =   });
-
-
+const id =
 
 
   return router;
