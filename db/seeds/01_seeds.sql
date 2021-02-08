@@ -28,9 +28,9 @@ VALUES
   -- user 1
   (1, 1, 'buy a christmas tree', TRUE, '06-03-2020'),
   (1, 3, 'read harry potter', TRUE, '06-03-2020'),
-  (1, 1, 'buy a car', TRUE, '20-01-2020'),
+  (1, 1, 'buy a car', TRUE, '12-01-2020'),
   (1, 2, 'eat burger', TRUE, '10-10-2020'),
-  (1, 2, 'watch forrest gump', TRUE, '20-2-2020'),
+  (1, 2, 'watch forrest gump', TRUE, '11-02-2020'),
   (1, 2, 'eat banana', TRUE, '03-10-2020'),
   -- user 2
   (2, 2, 'eat pizza', TRUE, '01-06-2020'),

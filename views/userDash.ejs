@@ -23,7 +23,7 @@
   </nav>
 
   <!-- Add-a-note  -->
-  <form class="add-todo-form" action="">
+  <form class="add-todo-form" action="/api/todos" method="POST">
     <label for="note">Note</label>
     <input type="text" class="note-add" placeholder="Jot your ToDo">
     <input class="add-todo-btn" type="submit" value="Add">
@@ -31,37 +31,13 @@
 
   <!-- Todo List -->
   <table class="to-do-list">
-    <tr>
+    <header class = "table_header">
       <th>Id</th>
       <th>Do-It-s</th>
       <th>Category</th>
       <th>Status</th>
       <th>Date Added</th>
-      <th>Date Added</th>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Read The Counte of Monte Cristo</td>
-      <td>Books</td>
-      <td>Not Done</td>
-      <td>20-02-2002</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Watch Forrest Gump</td>
-      <td>Movies</td>
-      <td>Not Done</td>
-      <td>20-02-2002</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Go have a BicMac</td>
-      <td>Restaurant</td>
-      <td>Not Done</td>
-      <td>20-02-2002</td>
-    </tr>
+    </header>
   </table>
 
 </body>
-
-</html>

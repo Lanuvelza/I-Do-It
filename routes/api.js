@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const test = process.argv.splice(2).join("+");
 const  fetchRecipe = function(callback) {
-  request(`https://api.spoonacular.com/recipes/complexSearch?query=${test}&apiKey=${process.env.FOOD_API_KEY}`, (error, response, body) => {
+  request(`https://api.spoonacular.com/recipes/complexSearch?query=${test}&apiKey=${process.env.API_KEY}`, (error, response, body) => {
     if (error) return callback(error, null); //if error, error
     if (response.statusCode !== 200) { //if the response is anything but 200 (aka response ok)
       callback(Error(`Status Code ${response.statusCode} when fetching IP: ${body}`), null);
@@ -37,26 +37,6 @@ const  fetchBook = function(callback) {
     callback(null, books);
   });
 };
-
-
-// index.js
-const { fetchBook, fetchRecipe } = require('./tinkering');
-
-fetchBook((error, book) => {
-  if (error) {
-    console.log("It didn't work!" , error);
-    return;
-  }
-  console.log('It worked! Returned books:' , book);
-});
-
-fetchRecipe((error, recipe) => {
-  if (error) {
-    console.log("It didn't work!" , error);
-    return;
-  }
-  console.log('It worked! Returned recipes:' , recipe);
-});
 
 
 
