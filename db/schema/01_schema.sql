@@ -1,6 +1,8 @@
 -- Drop and recreate Users table
 DROP TABLE IF EXISTS users CASCADE;
+
 DROP TABLE IF EXISTS todos CASCADE;
+
 DROP TABLE IF EXISTS categories CASCADE;
 
 CREATE TABLE users (
@@ -21,7 +23,6 @@ CREATE TABLE todos (
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   title VARCHAR(255) NOT NULL,
   is_active BOOLEAN NOT NULL DEFAULT TRUE,
-  created_date DATE
+  created_date DATE,
+  scheduled_date DATE
 );
-
-

@@ -1,30 +1,63 @@
-.to-do-list {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+
+.todo-container{
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  border: 2px solid #e44232;
   width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 50px;
+  height: 75px;
+  margin: 50px 15%;
+  background-color: white;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bolder;
+  justify-content: space-between;
+  opacity: 0.75;
 }
 
-.to-do-list td, .to-do-list th {
-  border: 1px solid #ddd;
-  padding: 8px;
+.todo-container:hover{
+  opacity: 1;
 }
 
-.to-do-list tr:nth-child(even){background-color: #f2f2f2;}
-
-.to-do-list tr:nth-child(odd){background-color: white;}
-
-.to-do-list tr:hover {background-color: #ddd;}
-
-.to-do-list th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #e44232;
-  color: white;
+.todo-category{
+  font-size: 35px;
+  align-self: center;
+  padding-left: 15px;
 }
+
+.posted-todo{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 22px;
+  font-weight: bolder;
+  padding-left: 30px;
+}
+
+.todo-cat-post{
+  display: flex;
+}
+
+.scheduled-todo-date{
+margin-top: 10px;
+  font-size: 15px;
+}
+
+.added-todo-date{
+  padding-left: 20px;
+}
+
+.todo-text{
+  text-decoration: underline;
+}
+
+.icons-todo{
+  align-self: center;
+  padding: 10px;
+}
+
+
+
+// add form and button layout
 
 button[type=submit] {
   background-color: #e44232;
@@ -39,10 +72,73 @@ button[type=submit] {
 }
 
 button[type=submit]:hover {
-  background-color: #e4413297;
+  background-color: #e44132d4;
 }
 
 .add-todo-form{
   margin-top: 300px;
   text-align: center;
 }
+
+
+
+
+
+userLogin
+
+
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  margin-top: 100px;
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #e44232;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover {
+  background: #e44132d4;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #e44232;
+  text-decoration: none;
+}
+
+

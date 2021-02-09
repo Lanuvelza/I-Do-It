@@ -42,20 +42,15 @@ const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const todoRoutes = require("./routes/todoRoutes");
 const loginRoutes = require("./routes/login");
+const categoriesRoutes = require("./routes/categoriesRoutes");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/todos", todoRoutes(db));
-
-// I COMMENTED THE BELOW LINE TO NOT ALTER ANYTHING YOU DID IN ROUTES, NOW LOGIN PAGE IS RENDERING AT localhost:8080/login AND I REMOVED THE EDIT PAGE
-
-// app.use("/login", loginRoutes(db));
-
-
-
-
+app.use("/login", loginRoutes(db));
+app.use("/api/categories", categoriesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
