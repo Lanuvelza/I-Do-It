@@ -1,14 +1,18 @@
-
 $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });
-
+  //   $.ajax({
+  //     method: "GET",
+  //     url: "/api/users"
+  //   }).done((users) => {
+  //     for(user of users) {
+  //       $("<div>").text(user.name).appendTo($("body"));
+  //     }
+  //   });
+  const iconMap = {
+    read: "fa fa-book",
+    eat: "fa fa-cutlery",
+    buy: "fa fa-cart-plus",
+    watch: "fa fa-film"
+  }
   // creates a new todo row
   const createToDoElement = function (todos, category) {
     return markup = `
@@ -34,30 +38,32 @@ $(() => {
     </article>
 `
   };
-
   // renders todos onto the page
-  const renderToDos= function(todos) {
+  const renderToDos = function (todos, categories) {
+    $(".todo-container").empty();
     for (const todo of todos) {
-      $(".to-do-list").append(createToDoElement(todo));
+      $(".markup-container").prepend(createToDoElement(todo, categories[todo.category_id - 1]));
     }
   };
-
   // loads the todos from the database
-  const loadToDos = function() {
-    $.ajax({
+  const loadToDos = function () {
+    const toDoPromise = $.ajax({
       url: '/api/todos/',
       method: 'GET'
     })
-    .done((data) => {
-      renderToDos(data.todos);
+    const categoriesPromise = $.ajax({
+      url: '/api/categories/',
+      method: 'GET'
     })
-    .fail(error => console.log(error));
+    Promise.all([toDoPromise, categoriesPromise])
+      // array and object destruction made in then
+      .then(([{ todos }, { categories }]) => {
+        renderToDos(todos, categories);
+      })
   };
-
   loadToDos();
-
   // adds a new todo onto the table
-  $('.add-todo-form').on('submit', function(event) {
+  $('.add-todo-form').on('submit', function (event) {
     event.preventDefault();
     console.log("click");
     const queryString = $(this).serialize();
@@ -66,11 +72,24 @@ $(() => {
       method: 'POST',
       data: queryString
     })
-    .done(() => {
-      $(".to-do-list").empty();
-      loadToDos();
-      $(this.children[1]).val("");
-    })
-    .fail(error => console.log(error));
+      .done(() => {
+        loadToDos();
+        $(this.children[1]).val("");
+      })
+      .fail(error => console.log(error));
   });
+  // loads the recent todo from the database
+  // const loadRecentToDos = function () {
+  //   $.ajax({
+  //     url: '/api/todos/:id',
+  //     method: 'GET'
+  //   })
+  //     .done((data) => {
+  //       renderRecentToDos(data.todos[data.todos.length - 1]);
+  //     })
+  //     .fail(error => console.log(error));
+  // };
+  // const renderRecentToDos = function (todo) {
+  //   $(".to-do-list").append(createToDoElement(todo));
+  // };
 });
