@@ -11,14 +11,17 @@ $(() => {
 
   // creates a new todo row
   const createToDoElement = function(todos) {
-    return markup = `<tr>
+    return markup = `
+    <tr>
       <th>${todos.id}</th>
       <th>${todos.title}</th>
       <th>${todos.category_id}</th>
       <th>${todos.isActive}</th>
       <th>${todos.created_date}</th>
-    </tr>`
-
+      <th>
+    </tr>
+    `
+    //need edit and delete button here in markup
   };
 
   // renders todos onto the page
@@ -31,7 +34,7 @@ $(() => {
   // loads the todos from the database
   const loadToDos = function() {
     $.ajax({
-      url: '/api/todos/',
+      url: '/api/todos/:id',
       method: 'GET'
     })
     .done((data) => {
@@ -53,10 +56,26 @@ $(() => {
       data: queryString
     })
     .done(() => {
-      $(".to-do-list").empty();
-      loadToDos();
+      loadRecentToDos();
       $(this.children[1]).val("");
     })
     .fail(error => console.log(error));
   });
+
+  // loads the recent todo from the database
+  const loadRecentToDos = function() {
+    $.ajax({
+      url: '/api/todos/:id',
+      method: 'GET'
+    })
+    .done((data) => {
+      renderRecentToDos(data.todos[data.todos.length - 1]);
+    })
+    .fail(error => console.log(error));
+  };
+
+  const renderRecentToDos = function(todo) {
+    $(".to-do-list").append(createToDoElement(todo));
+  };
+
 });
