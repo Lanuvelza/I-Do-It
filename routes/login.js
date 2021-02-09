@@ -1,5 +1,5 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 
 module.exports = (db) => {
@@ -11,9 +11,9 @@ module.exports = (db) => {
 
   // get /login/:id
   router.get("/:id", (req, res) => {
-  req.session.user_id = req.params.id;
-  res.redirect('/dash');
-  console.log(req.session.user_id);
+    req.session.user_id = req.params.id;
+    res.redirect('/dash');
+    console.log(req.session.user_id);
   });
   return router;
 

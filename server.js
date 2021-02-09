@@ -48,7 +48,14 @@ const loginRoutes = require("./routes/login");
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/todos", todoRoutes(db));
-app.use("/login", loginRoutes(db));
+
+// I COMMENTED THE BELOW LINE TO NOT ALTER ANYTHING YOU DID IN ROUTES, NOW LOGIN PAGE IS RENDERING AT localhost:8080/login AND I REMOVED THE EDIT PAGE
+
+// app.use("/login", loginRoutes(db));
+
+
+
+
 // Note: mount other resources here, using the same pattern above
 
 
@@ -63,8 +70,8 @@ app.get("/dash", (req, res) => {
   res.render("userDash");
 });
 
-app.get("/edit", (req, res) => {
-  res.render("editDoS");
+app.get("/login", (req, res) => {
+  res.render("userLogin");
 });
 
 app.listen(PORT, () => {
