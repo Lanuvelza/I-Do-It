@@ -5,9 +5,8 @@ const router = express.Router();
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    res.send("login page");
+    res.render("userLogin");
   });
-
 
   // get /login/:id
   router.get("/:id", (req, res) => {
@@ -15,6 +14,7 @@ module.exports = (db) => {
     res.redirect('/dash');
     console.log(req.session.user_id);
   });
+
   return router;
 
 };
