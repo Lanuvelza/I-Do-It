@@ -1,43 +1,47 @@
-const request = require('request');
 require('dotenv').config()
+const fetch = require("node-fetch");
 
-const test = process.argv.splice(2).join("+");
-const  fetchRecipe = function(callback) {
-  request(`https://api.spoonacular.com/recipes/complexSearch?query=${test}&apiKey=${process.env.API_KEY}`, (error, response, body) => {
-    if (error) return callback(error, null); //if error, error
-    if (response.statusCode !== 200) { //if the response is anything but 200 (aka response ok)
-      callback(Error(`Status Code ${response.statusCode} when fetching IP: ${body}`), null);
-      return;
-    }
-    //store data in arr
-    const arr = JSON.parse(body).results
-    const recipes = []
-    //push titles of books listed in arr and push into books
-    for (let x = 0; x < arr.length; x++) {
-      recipes.push(arr[x].title);
-    }
-    callback(null, recipes);
-  });
-};
+let books;
+let recipes;
+let movies;
 
-const  fetchBook = function(callback) {
-  request(`https://www.googleapis.com/books/v1/volumes?q=${test}`, (error, response, body) => {
-    if (error) return callback(error, null); //if error, error
-    if (response.statusCode !== 200) { //if the response is anything but 200 (aka response ok)
-      callback(Error(`Status Code ${response.statusCode} when fetching IP: ${body}`), null);
-      return;
-    }
-    //store data in arr
-    const arr = JSON.parse(body).items
-    const books = []
-    //push titles of books listed in arr and push into books
-    for (let x = 0; x < arr.length; x++) {
-      books.push(arr[x].volumeInfo.title);
-    }
-    callback(null, books);
-  });
-};
+let obj = {}
+
+async function fetchBookResults(UI) {
+  const fetchBook = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${UI}+intitle:${UI}`)
+  const totalResult = await fetchBook.json()
+  return totalResult.totalItems/75;
+}
+async function fetchRecipeResults(UI) {
+  const fetchRecipe = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${UI}&apiKey=${process.env.FOOD_API_KEY}`)
+  const totalResult = await fetchRecipe.json()
+  return totalResult.totalResults;
+}
+async function fetchMovieResults(UI) {
+  const fetchBook = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${UI}`)
+  const totalResult = await fetchBook.json()
+  return totalResult.total_results
+}
 
 
 
-module.exports = { fetchBook , fetchRecipe};
+async function amountOfResults (userInput)  {
+
+books = await fetchBookResults(userInput)
+recipes = await fetchRecipeResults(userInput)
+movies = await fetchMovieResults(userInput)
+setTimeout(()=> {console.log(books)
+  obj = {
+    books,
+    recipes,
+    movies
+  }
+
+  console.log(obj)
+  }, 2000)
+
+}
+amountOfResults("pasta")
+
+
+ module.exports = amountOfResults;
