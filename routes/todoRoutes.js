@@ -23,8 +23,10 @@ module.exports = (db) => {
 
   // retrieves all the todos from a user id
   router.get("/:id", (req, res) => {
-    db.query(`SELECT * FROM todos WHERE id = $1`,
-    [req.params.id])
+    db.query(`SELECT * FROM todos
+    JOIN users ON todos.user_id = users.id
+    WHERE user_id = $1`,
+    [req.session.user_id])
       .then(data => {
         const todos = data.rows;
         res.json({todos});
@@ -38,10 +40,11 @@ module.exports = (db) => {
 
   // inserts a new todo into the database
   router.post("/", (req, res) => {
-    const user_id = 1;
+    const user_id = req.session.user_id;
     const category_id = 1;
     const title = req.body.new_todo;
     const created_date = '07-07-2020';
+
     db.query(`
     INSERT INTO todos
     (user_id, category_id, title, created_date)
