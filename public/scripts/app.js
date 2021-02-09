@@ -30,9 +30,9 @@ $(() => {
     </div>
     <span class="icons-todo">
       <div class="hello">
-        <form><button><i class="fa fa-check-square-o" aria-hidden="true"></i></button><form>
-        <form><button><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><form>
-        <form><button><i class="fa fa-trash" aria-hidden="true"></i></button><form>
+        <form class="complete-btn"><button><i class="fa fa-check-square-o" aria-hidden="true"></i></button><form>
+        <form class="edit-btn"><button><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><form>
+        <form class="delete-btn"><button><i class="fa fa-trash" aria-hidden="true"></i></button><form>
       </div>
       <div>
       </div>
