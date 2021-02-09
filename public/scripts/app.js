@@ -53,7 +53,7 @@ $(() => {
   // loads the todos from the database
   const loadToDos = function () {
     const toDoPromise = $.ajax({
-      url: '/api/todos/:id',
+      url: '/api/todos/',
       method: 'GET'
     })
     const categoriesPromise = $.ajax({
@@ -81,7 +81,6 @@ $(() => {
       data: queryString
     })
       .done(() => {
-        // $(".to-do-list").empty();
         loadToDos();
         $(this.children[1]).val("");
       })
@@ -89,19 +88,19 @@ $(() => {
   });
 
   // loads the recent todo from the database
-  const loadRecentToDos = function () {
-    $.ajax({
-      url: '/api/todos/:id',
-      method: 'GET'
-    })
-      .done((data) => {
-        renderRecentToDos(data.todos[data.todos.length - 1]);
-      })
-      .fail(error => console.log(error));
-  };
+  // const loadRecentToDos = function () {
+  //   $.ajax({
+  //     url: '/api/todos/:id',
+  //     method: 'GET'
+  //   })
+  //     .done((data) => {
+  //       renderRecentToDos(data.todos[data.todos.length - 1]);
+  //     })
+  //     .fail(error => console.log(error));
+  // };
 
-  const renderRecentToDos = function (todo) {
-    $(".to-do-list").append(createToDoElement(todo));
-  };
+  // const renderRecentToDos = function (todo) {
+  //   $(".to-do-list").append(createToDoElement(todo));
+  // };
 
 });
