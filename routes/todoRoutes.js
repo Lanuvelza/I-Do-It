@@ -4,6 +4,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const largestObjectKey = require('./api.js')
 
 module.exports = (db) => {
 
@@ -25,10 +26,9 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     db.query(`SELECT * FROM todos
     WHERE user_id = $1
-    ORDER BY is_active ASC, id ;`,
+    ORDER BY id ASC;`,
     [req.session.user_id])
       .then(data => {
-        console.log(data.rows);
         const todos = data.rows;
         res.json({todos});
       })
@@ -40,11 +40,30 @@ module.exports = (db) => {
   });
 
   // inserts a new todo into the database
-  router.post("/", (req, res) => {
+  router.post("/", async (req, res) => {
+
     const user_id = req.session.user_id;
-    const category_id = 1;
+    console.log(user_id)
     const title = req.body.new_todo;
     const created_date = '07-07-2020';
+    let category_id;
+
+    //pause and wait for this to complete
+    const category = await largestObjectKey(title);
+      switch (category) {
+        case 'product':
+          category_id = 1;
+          break;
+        case 'recipe':
+          category_id = 2;
+          break;
+        case 'book':
+          category_id = 3;
+          break;
+        case 'movie':
+          category_id = 4;
+          break;
+      }
 
     db.query(`
     INSERT INTO todos
@@ -60,8 +79,8 @@ module.exports = (db) => {
       res
         .status(500)
         .json({ error: err.message });
-    });
-  });
+      });
+   });
 
   // deletes a todo from the database
   router.post("/delete", (req, res) => {
@@ -102,5 +121,4 @@ module.exports = (db) => {
   });
 
   return router;
-
-};
+  }
