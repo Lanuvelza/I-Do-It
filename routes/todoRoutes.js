@@ -24,7 +24,6 @@ module.exports = (db) => {
   // retrieves all the todos from a user id
   router.get("/:id", (req, res) => {
     db.query(`SELECT * FROM todos
-    JOIN users ON todos.user_id = users.id
     WHERE user_id = $1`,
     [req.session.user_id])
       .then(data => {
@@ -62,6 +61,25 @@ module.exports = (db) => {
     });
   });
 
+
+  router.post("/delete", (req, res) => {
+    console.log("here in delete");
+    console.log(req.body);
+
+    db.query(`DELETE FROM todos
+    WHERE id = $1;`,
+    [req.body.id])
+    .then(data => {
+      const todos = data.rows;
+      res.json({todos});
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+
+  });
   return router;
 
 };
