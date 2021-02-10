@@ -24,7 +24,8 @@ module.exports = (db) => {
   // retrieves all the todos from a user id
   router.get("/:id", (req, res) => {
     db.query(`SELECT * FROM todos
-    WHERE user_id = $1`,
+    WHERE user_id = $1
+    ORDER BY is_active ASC`,
     [req.session.user_id])
       .then(data => {
         const todos = data.rows;
@@ -61,7 +62,7 @@ module.exports = (db) => {
     });
   });
 
-
+  // deletes a todo from the database
   router.post("/delete", (req, res) => {
     console.log("here in delete");
     console.log(req.body);
@@ -80,6 +81,25 @@ module.exports = (db) => {
     });
 
   });
+
+  // marks a todo as inactive/completed
+  router.post("/complete", (req, res) => {
+    console.log("here in complete");
+    console.log(req.body.id);
+
+    db.query(`UPDATE todos SET is_active = FALSE
+    WHERE id = $1`, [req.body.id])
+    .then(data => {
+      const todos = data.rows;
+      res.json({todos});
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
   return router;
 
 };
