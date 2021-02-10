@@ -1,43 +1,37 @@
-$(() => {
-  //   $.ajax({
-  //     method: "GET",
-  //     url: "/api/users"
-  //   }).done((users) => {
-  //     for(user of users) {
-  //       $("<div>").text(user.name).appendTo($("body"));
-  //     }
-  //   });
+$(document).ready(function() {
+
   const iconMap = {
     read: "fa fa-book",
     eat: "fa fa-cutlery",
     buy: "fa fa-cart-plus",
     watch: "fa fa-film"
-  }
-  // creates a new todo row
-  const createToDoElement = function (todos, category) {
-    return markup = `
-    <article class="todo-container">
-    <div class="todo-cat-post">
-      <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
-      <span class="posted-todo">
-        <a class="todo-text">${category.category_name} ${todos.title}</a>
-        <span class="scheduled-todo-date">
-          Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
-        </span>
-      </span>
-    </div>
-    <span class="icons-todo">
-      <div class="hello">
-        <form class="complete-btn"><button><i class="fa fa-check-square-o" aria-hidden="true"></i></button><form>
-        <form class="edit-btn"><button><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><form>
-        <form class="delete-btn"><button><i class="fa fa-trash" aria-hidden="true"></i></button><form>
-      </div>
-      <div>
-      </div>
-    </span>
-    </article>
-`
   };
+
+   // creates a new todo row
+   const createToDoElement = function (todos, category) {
+
+        // console.log(todos.id);
+        return markup = `
+        <article data-todo-id=${todos.id} class="todo-container">
+        <div class="todo-cat-post">
+          <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
+          <span class="posted-todo">
+            <a class="todo-text">${category.category_name} ${todos.title}</a>
+            <span class="scheduled-todo-date">
+              Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
+            </span>
+          </span>
+        </div>
+        <span class="icons-todo">
+          <div class="hello">
+            <button class="complete-btn"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+            <button class="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button class="delete-btn" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </div>
+        </span>
+        </article>
+    `;
+  }
   // renders todos onto the page
   const renderToDos = function (todos, categories) {
     $(".todo-container").empty();
@@ -45,25 +39,27 @@ $(() => {
       $(".markup-container").prepend(createToDoElement(todo, categories[todo.category_id - 1]));
     }
   };
+
   // loads the todos from the database
   const loadToDos = function () {
     const toDoPromise = $.ajax({
-      url: '/api/todos/',
+      url: '/api/todos/:id',
       method: 'GET'
-    })
+    });
     const categoriesPromise = $.ajax({
       url: '/api/categories/',
       method: 'GET'
-    })
+    });
     Promise.all([toDoPromise, categoriesPromise])
       // array and object destruction made in then
       .then(([{ todos }, { categories }]) => {
         renderToDos(todos, categories);
-      })
+      });
   };
   loadToDos();
-  // adds a new todo onto the table
-  $('.add-todo-form').on('submit', function (event) {
+
+  //adds a new todo onto the table
+  $('.add-todo-form').on('submit', function(event) {
     event.preventDefault();
     console.log("click");
     const queryString = $(this).serialize();
@@ -78,18 +74,26 @@ $(() => {
       })
       .fail(error => console.log(error));
   });
-  // loads the recent todo from the database
-  // const loadRecentToDos = function () {
-  //   $.ajax({
-  //     url: '/api/todos/:id',
-  //     method: 'GET'
-  //   })
-  //     .done((data) => {
-  //       renderRecentToDos(data.todos[data.todos.length - 1]);
-  //     })
-  //     .fail(error => console.log(error));
-  // };
-  // const renderRecentToDos = function (todo) {
-  //   $(".to-do-list").append(createToDoElement(todo));
-  // };
+
+  // deletes a todo from the table
+  $(document).on('click','.delete-btn',function(event){
+    event.preventDefault();
+    console.log('delete');
+    // console.log(event.currentTarget);
+    const $parent = $(event.currentTarget).parent().parent().parent();
+    var todoid = $parent.attr('data-todo-id');
+    console.log(todoid);
+    $.ajax({
+      url: "/api/todos/delete",
+      method: 'POST',
+      data: {
+        id: todoid
+      }
+    })
+    .done(() => {
+      $parent.remove();
+    })
+    .fail(error => console.log(error));
+  });
+
 });
