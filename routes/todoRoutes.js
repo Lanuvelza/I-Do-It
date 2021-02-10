@@ -25,7 +25,7 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     db.query(`SELECT * FROM todos
     WHERE user_id = $1
-    ORDER BY is_active ASC`,
+    ORDER BY id ASC;`,
     [req.session.user_id])
       .then(data => {
         const todos = data.rows;
