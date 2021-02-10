@@ -3,5 +3,3 @@ public/styles
 .env
 *.log
 *.sqlite3
-public/scripts/tinkering.js
-public/scripts/tinkerings.js
