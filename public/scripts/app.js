@@ -9,9 +9,22 @@ $(document).ready(function() {
 
    // creates a new todo row
    const createToDoElement = function (todos, category) {
+     if(!todos.is_active) {
+       return markup = `
+       <article data-todo-id=${todos.id} class="todo-container-completed">
+       <div class="todo-cat-post">
+         <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
+         <span class="posted-todo">
+           <a class="todo-text">${category.category_name} ${todos.title}</a>
+           <span class="scheduled-todo-date">
+             Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
+           </span>
+         </span>
+       </div>
+       </article>`;
+     }
 
-        // console.log(todos.id);
-        return markup = `
+     return markup = `
         <article data-todo-id=${todos.id} class="todo-container">
         <div class="todo-cat-post">
           <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
@@ -34,7 +47,7 @@ $(document).ready(function() {
   }
   // renders todos onto the page
   const renderToDos = function (todos, categories) {
-    $(".todo-container").empty();
+    $(".markup-container").empty();
     for (const todo of todos) {
       $(".markup-container").prepend(createToDoElement(todo, categories[todo.category_id - 1]));
     }
@@ -81,7 +94,7 @@ $(document).ready(function() {
     console.log('delete');
     // console.log(event.currentTarget);
     const $parent = $(event.currentTarget).parent().parent().parent();
-    var todoid = $parent.attr('data-todo-id');
+    const todoid = $parent.attr('data-todo-id');
     console.log(todoid);
     $.ajax({
       url: "/api/todos/delete",
@@ -92,6 +105,36 @@ $(document).ready(function() {
     })
     .done(() => {
       $parent.remove();
+    })
+    .fail(error => console.log(error));
+  });
+
+  // mark a todo as completed
+  $(document).on('click', '.complete-btn', function(event) {
+    event.preventDefault();
+    console.log('complete');
+    // console.log(event.currentTarget);
+    const $parent = $(event.currentTarget).parent().parent().parent();
+    const todoid = $parent.attr('data-todo-id');
+    console.log(todoid);
+    // console.log($parent);
+    // const $deleteButton = $(event.currentTarget).parent().children()[2];
+    // const $editButton = $(event.currentTarget).parent().children()[1];
+    // console.log($deleteButton);
+    // console.log($editButton);
+    // $parent.css("background-color", "green");
+    // $(event.currentTarget).remove();
+    // $deleteButton.remove();
+    // $editButton.remove();
+    $.ajax({
+      url: "/api/todos/complete",
+      method: 'POST',
+      data: {
+        id: todoid
+      }
+    })
+    .done(() => {
+      loadToDos();
     })
     .fail(error => console.log(error));
   });
