@@ -7,6 +7,15 @@ $(document).ready(function () {
     watch: "fa fa-film"
   }
 
+  const categoryMap = {
+    buy: 1,
+    eat: 2,
+    read: 3,
+    watch: 4
+  }
+  // let currentId = null;
+  let currentToDo = null;
+
 
   function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
@@ -86,6 +95,7 @@ $(document).ready(function () {
       markup = createElementFromHTML(markup);
       markup.addEventListener("click", () => {
 
+        currentToDo = todo;
         // logic to get current title of todo want to edit
         const titleContainer = $('.edit-form').children("form");
         const todoTitle = titleContainer.children("input.todo-title");
@@ -110,7 +120,7 @@ $(document).ready(function () {
   // loads the todos from the database
   const loadToDos = function () {
     const toDoPromise = $.ajax({
-      url: '/api/todos/',
+      url: '/api/todos/:id',
       method: 'GET'
     });
     const categoriesPromise = $.ajax({
@@ -174,14 +184,15 @@ $(document).ready(function () {
       $('.edit-background').css("display", "none");
     }
   });
+
   // deletes a todo from the table
   $(document).on('click', '.delete-btn', function (event) {
     event.preventDefault();
-    console.log('delete');
+    // console.log('delete');
     // console.log(event.currentTarget);
     const $parent = $(event.currentTarget).parent().parent().parent();
     const todoid = $parent.attr('data-todo-id');
-    console.log(todoid);
+    // console.log(todoid);
     $.ajax({
       url: "/api/todos/delete",
       method: 'POST',
@@ -195,10 +206,36 @@ $(document).ready(function () {
       .fail(error => console.log(error));
   });
 
+
+  // edit a todo from table
+  $('.edit-form').on('click', '.edit-form-submit-btn', function (event) {
+    event.preventDefault();
+    const $parent = $(event.currentTarget).parent().parent();
+    const newTitleValue = $parent.children('.todo-title').val();
+    const newDueDateValue = $parent.children('.edit-due-date').val();
+    const newCatValue = $parent.children('.edit-category').find('option:selected').text();
+    $.ajax({
+      url: "/api/todos/edit",
+      method: 'POST',
+      data: {
+        id: currentToDo.id,
+        category_id: categoryMap[newCatValue],
+        title: newTitleValue,
+        scheduled_date: newDueDateValue,
+      }
+    })
+      .done(() => {
+        loadToDos();
+        $('.edit-background').css("display", "none");
+      })
+      .fail(error => console.log(error));
+  });
+
+
   // mark a todo as completed
   $(document).on('click', '.complete-btn', function (event) {
     event.preventDefault();
-    console.log('complete');
+    // console.log('complete');
     // console.log(event.currentTarget);
     const $parent = $(event.currentTarget).parent().parent().parent();
     const todoid = $parent.attr('data-todo-id');

@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 module.exports = (db) => {
 
@@ -25,11 +25,12 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     db.query(`SELECT * FROM todos
     WHERE user_id = $1
-    ORDER BY is_active ASC`,
-    [req.session.user_id])
+    ORDER BY is_active ASC, id ASC
+    ;`,
+      [req.session.user_id])
       .then(data => {
         const todos = data.rows;
-        res.json({todos});
+        res.json({ todos });
       })
       .catch(err => {
         res
@@ -50,16 +51,17 @@ module.exports = (db) => {
     (user_id, category_id, title, created_date)
     VALUES
     ($1, $2, $3, $4);
-    `,[user_id, category_id, title, created_date])
-    .then(data => {
-      const todos = data.rows;
-      res.json({todos});
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+    `, [user_id, category_id, title, created_date])
+      .then(data => {
+        console.log("this is add data:", data)
+        const todos = data.rows;
+        res.json({ todos });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
   // deletes a todo from the database
@@ -69,16 +71,40 @@ module.exports = (db) => {
 
     db.query(`DELETE FROM todos
     WHERE id = $1;`,
-    [req.body.id])
-    .then(data => {
-      const todos = data.rows;
-      res.json({todos});
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+      [req.body.id])
+      .then(data => {
+        const todos = data.rows;
+        res.json({ todos });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+
+  });
+
+  //edit a todo from the database
+  router.post("/edit", (req, res) => {
+
+    // console.log("here in edit");
+    // console.log(JSON.parse(req.body));
+    // const updatedTodo = JSON.parse(req.body.todo)
+    // console.log("NEW TITLE", req.body);
+    db.query(`UPDATE todos
+    SET title = $1, scheduled_date = $2, category_id = $3 WHERE id = $4;`, [req.body.title, req.body.scheduled_date, req.body.category_id, req.body.id])
+      .then(data => {
+        // console.log("This is data", data);
+        const todos = data.rows;
+        // console.log('rows', todos);
+        res.json({ todos });
+      })
+      .catch(err => {
+        console.log(err);
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
 
   });
 
@@ -89,15 +115,15 @@ module.exports = (db) => {
 
     db.query(`UPDATE todos SET is_active = FALSE
     WHERE id = $1`, [req.body.id])
-    .then(data => {
-      const todos = data.rows;
-      res.json({todos});
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+      .then(data => {
+        const todos = data.rows;
+        res.json({ todos });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
   return router;
