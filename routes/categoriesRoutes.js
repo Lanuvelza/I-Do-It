@@ -7,7 +7,7 @@ const router = express.Router();
 
 module.exports = (db) => {
 
-  // retrieves all the categories from database
+  //retrieves all the categories from database
   router.get("/", (req, res) => {
     db.query(`SELECT * FROM categories;`)
       .then(data => {
@@ -22,6 +22,4 @@ module.exports = (db) => {
       });
   });
   return router;
-
-
 };
