@@ -110,7 +110,7 @@ $(document).ready(function () {
   // loads the todos from the database
   const loadToDos = function () {
     const toDoPromise = $.ajax({
-      url: '/api/todos/',
+      url: '/api/todos/:id',
       method: 'GET'
     });
     const categoriesPromise = $.ajax({
