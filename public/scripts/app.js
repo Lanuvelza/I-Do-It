@@ -15,28 +15,30 @@ $(() => {
     watch: "fa fa-film"
   }
 
+
   // creates a new todo row
   const createToDoElement = function (todos, category) {
+
     return markup = `
     <article class="todo-container">
     <div class="todo-cat-post">
-      <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
-      <span class="posted-todo">
+    <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
+    <span class="posted-todo">
         <a class="todo-text">${category.category_name} ${todos.title}</a>
         <span class="scheduled-todo-date">
           Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
         </span>
       </span>
-    </div>
+
     <span class="icons-todo">
-      <div class="hello">
-        <form class="complete-btn"><button><i class="fa fa-check-square-o" aria-hidden="true"></i></button><form>
-        <form class="edit-btn"><button><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><form>
-        <form class="delete-btn"><button><i class="fa fa-trash" aria-hidden="true"></i></button><form>
-      </div>
-      <div>
-      </div>
-    </span>
+    <button class="complete-btn"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+    <button class="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+    <button class="delete-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  </span>
+</div>
+
+
+
     </article>
 `
   };
@@ -46,6 +48,8 @@ $(() => {
     $(".todo-container").empty();
     for (const todo of todos) {
       $(".markup-container").prepend(createToDoElement(todo, categories[todo.category_id - 1]));
+
+
     }
   };
 
@@ -64,6 +68,7 @@ $(() => {
       // array and object destruction made in then
       .then(([{ todos }, { categories }]) => {
         renderToDos(todos, categories);
+
       })
 
   };
@@ -83,6 +88,7 @@ $(() => {
       .done(() => {
         loadToDos();
         $(this.children[1]).val("");
+
       })
       .fail(error => console.log(error));
   });
@@ -102,5 +108,20 @@ $(() => {
   // const renderRecentToDos = function (todo) {
   //   $(".to-do-list").append(createToDoElement(todo));
   // };
+
+  // edit form animations
+  $("body").on('click', ".edit-btn", () => {
+    console.log("HELLO CLICK");
+    $('.edit-form').fadeToggle();
+  })
+  $(document).mouseup((e) => {
+    const container = $('.edit-form');
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+      && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+      container.fadeOut();
+    }
+  });
 
 });

@@ -1,5 +1,4 @@
-
-.todo-container{
+.todo-container {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
@@ -8,23 +7,23 @@
   height: 75px;
   margin: 50px 15%;
   background-color: white;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-weight: bolder;
   justify-content: space-between;
   opacity: 0.75;
 }
 
-.todo-container:hover{
+.todo-container:hover {
   opacity: 1;
 }
 
-.todo-category{
+.todo-category {
   font-size: 35px;
   align-self: center;
   padding-left: 15px;
 }
 
-.posted-todo{
+.posted-todo {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -33,33 +32,46 @@
   padding-left: 30px;
 }
 
-.todo-cat-post{
+.todo-cat-post {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 
-.scheduled-todo-date{
-margin-top: 10px;
+.scheduled-todo-date {
+  margin-top: 10px;
   font-size: 15px;
+  color: #b3b3b3;
 }
 
-.added-todo-date{
+.added-todo-date {
   padding-left: 20px;
+  font-size: 15px;
+  color: #b3b3b3;
 }
 
-.todo-text{
+.todo-text {
   text-decoration: underline;
-}
-
-.icons-todo{
   align-self: center;
-  padding: 10px;
 }
 
-
+.icons-todo {
+  padding-right: 15px;
+  button {
+    border: none;
+    background-color: transparent;
+    font-size: 22px;
+  }
+  button:hover {
+    cursor: pointer;
+    color: #e44232;
+  }
+}
 
 // add form and button layout
 
-button[type=submit] {
+button[type="submit"] {
   background-color: #e44232;
   color: white;
   padding: 12px 12px;
@@ -71,23 +83,16 @@ button[type=submit] {
   width: 55px;
 }
 
-button[type=submit]:hover {
+button[type="submit"]:hover {
   background-color: #e44132d4;
 }
 
-.add-todo-form{
+.add-todo-form {
   margin-top: 300px;
   text-align: center;
 }
 
-
-
-
-
-userLogin
-
-
-.login-page {
+userLogin .login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
@@ -95,7 +100,7 @@ userLogin
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -122,7 +127,7 @@ userLogin
   width: 100%;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
@@ -141,4 +146,91 @@ userLogin
   text-decoration: none;
 }
 
+// edit popup form
 
+// * {
+//   box-sizing: border-box;
+// }
+
+// body {
+//   margin: 0;
+//   padding: 0;
+//   // background: #333;
+//   font-family: Raleway;
+//   font-size: 11px;
+// }
+h1 {
+  margin: 0;
+}
+// #contact {
+//   -webkit-user-select: none; /* Chrome/Safari */
+//   -moz-user-select: none; /* Firefox */
+//   -ms-user-select: none; /* IE10+ */
+//   margin: 4em auto;
+//   width: 100px;
+//   height: 30px;
+//   line-height: 30px;
+//   background: teal;
+//   color: white;
+//   font-weight: 700;
+//   text-align: center;
+//   cursor: pointer;
+//   border: 1px solid white;
+// }
+
+// #contact:hover {
+//   background: #666;
+// }
+// #contact:active {
+//   background: #444;
+// }
+
+.edit-form {
+  display: block;
+  border: 6px solid #e44132d4;
+  padding: 2em;
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  flex-direction: column;
+  z-index: 99;
+}
+
+// input,
+// textarea {
+//   margin: 0.8em auto;
+//   font-family: inherit;
+//   text-transform: inherit;
+//   font-size: inherit;
+
+//   display: block;
+//   width: 280px;
+//   padding: 0.4em;
+// }
+// textarea {
+//   height: 80px;
+//   resize: none;
+// }
+
+.formBtn {
+  width: 140px;
+  display: inline-block;
+  background: #e44232;
+  color: #fff;
+  font-weight: 100;
+  font-size: 1.2em;
+  border: none;
+  height: 30px;
+}
+
+.formBtn:hover {
+  background: #e44132d4;
+  cursor: pointer;
+}
