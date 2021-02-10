@@ -2,9 +2,9 @@ require('dotenv').config()
 const fetch = require("node-fetch");
 
 
-let books;
-let recipes;
-let movies;
+let book;
+let recipe;
+let movie;
 
 
 async function fetchBookResults(UI) {
@@ -22,35 +22,38 @@ async function fetchRecipeResults(UI) {
   return totalResult.totalResults;
 }
 async function fetchMovieResults(UI) {
-  const fetchBook = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${UI}`)
-  const totalResult = await fetchBook.json()
+  const fetchMovie = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${UI}`)
+  const totalResult = await fetchMovie.json()
   return totalResult.total_results
 }
 
 
 //populate variables with json data from above
-async function amountOfResults (userInput)  {
-  books = await fetchBookResults(userInput)
-  recipes = await fetchRecipeResults(userInput)
-  movies = await fetchMovieResults(userInput)
+ async function amountOfResults (userInput)  {
+   book = await fetchBookResults(userInput)
+  recipe = await fetchRecipeResults(userInput)
+  movie = await fetchMovieResults(userInput)
+
 };
-//timeout needed or promise <pending> is returned
-const returnObject = (userInput) => {
-  amountOfResults(userInput)
-  setTimeout(()=> {
+//removed time out and added async/await
+const largestObjectKey = async (userInput) => {
+  await amountOfResults(userInput)
     newObj = {
-      books,
-      recipes,
-      movies
+      book,
+      recipe,
+      movie
     }
-    //checks for the highest value in newObj and returns the key of said value
-    let max = Math.max.apply(null,Object.keys(newObj).map(function(x){ return newObj[x] }));
-    console.log(Object.keys(newObj).filter(function(x){ return newObj[x] == max; })[0]);
-    // console.log(Object.keys(newObj).filter(function(x){ return newObj[x] == max; })[0]);  <<<<<<<< how to properly console.log the statement
 
-  }, 750); //not sure how low this number can go
+    //checks for the highest value in newObj and returns the key of said value
+    let max = Math.max.apply(null,Object.keys(newObj).map(function(x) {
+      return newObj[x]
+    }));
+
+    const temp = Object.keys(newObj).filter(function(x) {
+      return newObj[x] == max; })[0];
+        return temp;
 };
 
 
 
- module.exports = returnObject;
+ module.exports = largestObjectKey;

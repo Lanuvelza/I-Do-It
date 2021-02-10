@@ -65,7 +65,6 @@ $(() => {
   // adds a new todo onto the table
   $('.add-todo-form').on('submit', function (event) {
     event.preventDefault();
-    console.log("click");
     const queryString = $(this).serialize();
     $.ajax({
       url: '/api/todos',
