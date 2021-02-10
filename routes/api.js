@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const fetch = require("node-fetch");
 
 
@@ -8,8 +8,8 @@ let movie;
 
 async function fetchBookResults(UI) {
 
-  const fetchBook = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${UI}+intitle:${UI}`)
-  const totalResult = await fetchBook.json()
+  const fetchBook = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${UI}+intitle:${UI}`);
+  const totalResult = await fetchBook.json();
   /*google books is a much larger api because of all the different publicfications (physical, digital, spinoffs etc.)
     so to negate the excess, i ran 100 different books and movies to see the results. /72 is a safe balance (movie always wins if it's a book and
     and movie.*/
@@ -28,7 +28,7 @@ async function fetchMovieResults(UI) {
 };
 
 //populate variables with json data from above
-async function amountOfResults (userInput);  {
+async function amountOfResults (userInput)  {
    book = await fetchBookResults(userInput);
    recipe = await fetchRecipeResults(userInput);
    movie = await fetchMovieResults(userInput);
