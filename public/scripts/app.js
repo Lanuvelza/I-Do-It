@@ -23,10 +23,11 @@ $(document).ready(function () {
     return div.firstChild;
   };
 
-  //   // creates a new todo row
+    // creates a new todo row
   const createToDoElement = function (todos, category) {
     if (!todos.is_active) {
-      return markup = `
+      return markup =
+      `
        <article data-todo-id=${todos.id} class="todo-container-completed">
        <div class="todo-cat-post">
          <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
@@ -89,7 +90,8 @@ $(document).ready(function () {
   // }
   // renders todos onto the page
   const renderToDos = function (todos, categories) {
-    $(".markup-container").empty();
+    $('.markup-container').empty();
+    console.log(todos)
     for (const todo of todos) {
       let markup = createToDoElement(todo, categories[todo.category_id - 1])
       markup = createElementFromHTML(markup);
@@ -111,9 +113,9 @@ $(document).ready(function () {
         const todoCategory = categoryContainer.children("select.edit-category");
         const currentCatName = categories[todo.category_id - 1].category_name;
         const categoryValue = todoCategory.val('');
-
-      })
-      $(".markup-container").prepend(markup);
+      }
+      )
+      $('.markup-container').prepend(markup);
     }
   };
 
@@ -139,7 +141,6 @@ $(document).ready(function () {
   //adds a new todo onto the table
   $('.add-todo-form').on('submit', function (event) {
     event.preventDefault();
-    console.log("click");
     const queryString = $(this).serialize();
     $.ajax({
       url: '/api/todos',
@@ -149,6 +150,7 @@ $(document).ready(function () {
       .done(() => {
         loadToDos();
         $(this.children[1]).val("");
+
 
       })
       .fail(error => console.log(error));

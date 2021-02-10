@@ -4,6 +4,7 @@
 
 const express = require('express');
 const router = express.Router();
+const largestObjectKey = require('./api.js')
 
 module.exports = (db) => {
 
@@ -40,11 +41,30 @@ module.exports = (db) => {
   });
 
   // inserts a new todo into the database
-  router.post("/", (req, res) => {
+  router.post("/", async (req, res) => {
+
     const user_id = req.session.user_id;
-    const category_id = 1;
+    console.log(user_id)
     const title = req.body.new_todo;
     const created_date = '07-07-2020';
+    let category_id;
+
+    //pause and wait for this to complete
+    const category = await largestObjectKey(title);
+    switch (category) {
+      case 'product':
+        category_id = 1;
+        break;
+      case 'recipe':
+        category_id = 2;
+        break;
+      case 'book':
+        category_id = 3;
+        break;
+      case 'movie':
+        category_id = 4;
+        break;
+    }
 
     db.query(`
     INSERT INTO todos
@@ -53,7 +73,6 @@ module.exports = (db) => {
     ($1, $2, $3, $4);
     `, [user_id, category_id, title, created_date])
       .then(data => {
-        console.log("this is add data:", data)
         const todos = data.rows;
         res.json({ todos });
       })
@@ -127,5 +146,4 @@ module.exports = (db) => {
   });
 
   return router;
-
-};
+}
