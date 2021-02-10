@@ -30,28 +30,35 @@
   </form>
 
   <!-- Todo List -->
-
-  <div class="markup-container"></div>
-
-  <div class="edit-form">
-    <h1>Edit Todos!</h1>
-    <small>Small tweeks gets goals clearer!</small>
-    <form>
-      <input placeholder="Todo" type="text" required />
-      <label for="edit-due-date">Due:</label>
-      <input class="edit-due-date" type="date" required />
-      <select class="edit-category" name="category">
-        <option value="read">read</option>
-        <option value="read">watch</option>
-        <option value="read">eat</option>
-        <option value="read">buy</option>
-      </select>
-      <input class="formBtn" type="submit" />
-      <input class="formBtn" type="reset" />
-    </form>
+  <div class="edit-background">
+    <div>1</div>
+    <div class="edit-form">
+      <h1>Edit Todos!</h1>
+      <small>Small tweeks gets goals clearer!</small>
+      <form>
+        <label for="todo-title">Todo:</label>
+        <input class="todo-title" placeholder="Todo" type="text" required />
+        <label for="edit-due-date">Due:</label>
+        <input class="edit-due-date" type="date" required />
+        <label for="edit-due-date">Category:</label>
+        <select class="edit-category" name="category">
+          <option value="read">read</option>
+          <option value="read">watch</option>
+          <option value="read">eat</option>
+          <option value="read">buy</option>
+        </select>
+        <div class="edit-form-btns">
+          <input class="edit-form-submit-btn" type="submit" />
+          <input class="edit-form-reset-btn" type="reset" />
+        </div>
+      </form>
+    </div>
   </div>
+
   </div>
 
+  <div class="markup-container">
 
+  </div>
 
 </body>
