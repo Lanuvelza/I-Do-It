@@ -14,6 +14,21 @@
   opacity: 0.75;
 }
 
+.todo-container-completed{
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  border: 2px solid #e44232;
+  width: 70%;
+  height: 75px;
+  margin: 50px 15%;
+  background-color: green;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bolder;
+  justify-content: space-between;
+  opacity: 0.75;
+}
+
 .todo-container:hover{
   opacity: 1;
 }
