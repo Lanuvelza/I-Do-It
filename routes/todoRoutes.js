@@ -41,24 +41,24 @@ module.exports = (db) => {
 
   // inserts a new todo into the database
   router.post("/", async (req, res) => {
+
     const user_id = req.session.user_id;
     const title = req.body.new_todo;
     const created_date = '07-07-2020';
     let category_id;
+
     //pause and wait for this to complete
     const category = await largestObjectKey(title);
       switch (category) {
         case 'recipe':
-          category_id = 2
-          console.log('does this show up2');
+          category_id = 2;
           break;
         case 'book':
-          category_id = 3
-          console.log('does this show up3');
+          category_id = 3;
           break;
         case 'movie':
-          category_id = 4
-          console.log('does this show up4');
+          category_id = 4;
+
           break;
       }
 
