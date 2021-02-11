@@ -13,6 +13,10 @@
   opacity: 0.75;
 }
 
+.markup-container {
+  margin-top: 250px;
+}
+
 .todo-container:hover {
   opacity: 1;
 }
@@ -91,46 +95,50 @@
   }
 }
 
+userLogin .login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
 // add form and button layout
 
-button[type="submit"] {
+.add-todo-btn {
   background-color: #e44232;
   color: white;
-  padding: 12px 12px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   margin-left: 15px;
   display: inline-block;
-  width: 55px;
+  width: 150px;
+  font-size: 50px;
+  font-weight: bolder;
+  display: block;
+  position: fixed;
+  top: 250px;
+  left: 5%;
+  outline: 0;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
 }
 
 button[type="submit"]:hover {
   background-color: #e44132d4;
 }
 
-.add-todo-form {
-  margin-top: 300px;
-  text-align: center;
-}
-
-userLogin .login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
-}
-.form {
+.add-form-container {
   position: relative;
   z-index: 1;
   background: #ffffff;
-  max-width: 360px;
+  max-width: 550px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   margin-top: 100px;
 }
-.form input {
+
+.add-form-container input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -141,7 +149,7 @@ userLogin .login-page {
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button {
+.add-form-container button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
@@ -155,15 +163,15 @@ userLogin .login-page {
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover {
+.add-form-container button:hover {
   background: #e44132d4;
 }
-.form .message {
+.add-form-container .message {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
-.form .message a {
+.add-form-container .message a {
   color: #e44232;
   text-decoration: none;
 }
@@ -213,7 +221,8 @@ input {
   height: 30px;
 }
 
-.formBtn:hover {
+.edit-form-reset-btn:hover,
+.edit-form-submit-btn:hover {
   background: #e44132d4;
   cursor: pointer;
 }
@@ -235,6 +244,85 @@ input {
   margin-top: 10px;
 }
 
+// add popup form layout
+
+h1 {
+  margin: 0;
+}
+
+.add-form {
+  border: 6px solid #e44132d4;
+  padding: 2em;
+  width: 600px;
+  height: 300px;
+  text-align: center;
+  background: #fff;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+input {
+  margin: 10px;
+}
+
+.add-form-submit-btn {
+  width: 140px;
+  display: inline-block;
+  background: #e44232;
+  color: #fff;
+  font-weight: 100;
+  font-size: 1.2em;
+  border: none;
+  height: auto;
+}
+
+.add-form-reset-btn {
+  width: 140px;
+  display: inline-block;
+  background: #e44232 !important;
+  color: #fff;
+  font-weight: 100;
+  font-size: 1em !important;
+  border: none;
+  height: auto !important;
+}
+
+.add-form-reset-btn:hover,
+.add-form-submit-btn:hover {
+  background: #e44132d4;
+  cursor: pointer;
+}
+
+.form-align {
+  display: flex;
+  // flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: space-around;
+}
+
+.add-background {
+  background-color: rgba(128, 128, 128, 0.366);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+}
+
+.add-form-btns {
+  margin-top: 10px;
+}
+
+.add-todo-form {
+  margin-top: 20px;
+  text-align: center;
+}
 .filter {
   background-color: green;
   margin: 400px;

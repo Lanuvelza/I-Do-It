@@ -35,15 +35,39 @@
   </div>
 
   <!-- Add-a-note  -->
-  <form class="add-todo-form" action="/api/todos" method="POST">
+  <!-- <form class="add-todo-form" action="/api/todos" method="POST">
     <label for="note">Note</label>
-    <input type="text" class="note-add" name="new_todo" placeholder="Jot your ToDo">
-    <button class="add-todo-btn" type="submit">Add</button>
-  </form>
+    <input type="text" class="note-add" name="new_todo" placeholder="Jot your ToDo"> -->
+  <!-- </form> -->
+  <!-- type="submit" this was in button below -->
+  <button class="add-todo-btn"><i class="fa fa-plus" aria-hidden="true"> </i></button>
 
-  <!-- Todo List -->
+  <!-- Add form -->
+  <div class="add-background">
+    <div class='add-form-container'>
+      <h1>Add Todos!</h1>
+      <small>Don't waste time just add and we categorize!</small>
+      <!-- <label for="add-todo-title">Todo:</label> -->
+      <form class="add-todo-form" action="/api/todos" method="POST">
+        <div class='form-align'>
+          <label for="todo">Todo:</label>
+          <input type="text" class="note-add" name="new_todo" placeholder="Jot your ToDo">
+        </div>
+        <div class='form-align'>
+          <label for="add-due-date">Due:</label>
+          <input class="add-due-date" type="date" name="new_todo" required />
+        </div>
+        <button class="add-form-submit-btn" type="submit">Add Todo</button>
+        <div class="add-form-btns">
+          <input class="add-form-reset-btn" type="reset" />
+        </div>
+      </form>
+      <!-- <input class="add-todo-title" placeholder="Todo" type="text" required /> -->
+    </div>
+  </div>
+
+  <!-- Edit form -->
   <div class="edit-background">
-    <div>1</div>
     <div class="edit-form">
       <h1>Edit Todos!</h1>
       <small>Small tweeks gets goals clearer!</small>
@@ -69,6 +93,7 @@
 
   </div>
 
+  <!-- Todo List -->
   <div class="markup-container"></div>
 
 </body>

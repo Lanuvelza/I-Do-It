@@ -23,11 +23,11 @@ $(document).ready(function () {
     return div.firstChild;
   };
 
-  // creates a new todo row
+  // creates a new todo container
   const createToDoElement = function (todos, category) {
     if (!todos.is_active) {
       return markup =
-      `
+        `
        <article data-todo-id=${todos.id} class="todo-container-completed">
        <div class="todo-cat-post">
          <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
@@ -125,6 +125,7 @@ $(document).ready(function () {
 
   //adds a new todo onto the table
   $('.add-todo-form').on('submit', function (event) {
+    console.log($(this).serialize());
     event.preventDefault();
     const queryString = $(this).serialize();
     $.ajax({
@@ -133,10 +134,10 @@ $(document).ready(function () {
       data: queryString
     })
       .done(() => {
+        $('.add-background').css("display", "none");
+        // console.log("I'M HERE2", data);
         loadToDos("all");
         $(this.children[1]).val("");
-
-
       })
       .fail(error => console.log(error));
   });
@@ -153,6 +154,21 @@ $(document).ready(function () {
       && container.has(e.target).length === 0) // ... nor a descendant of the container
     {
       $('.edit-background').css("display", "none");
+    }
+  });
+
+  // add button animations
+  $("body").on('click', ".add-todo-btn", () => {
+    $(window).scrollTop(0)
+    $('.add-background').css("display", "flex");
+  })
+  $(document).mouseup((e) => {
+    const container = $('.add-form-container');
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+      && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+      $('.add-background').css("display", "none");
     }
   });
 
@@ -220,14 +236,14 @@ $(document).ready(function () {
   });
 
   // filters to all categories
-  $('.all-btn').on('click', function(event) {
+  $('.all-btn').on('click', function (event) {
     event.preventDefault()
     console.log('all');
     loadToDos("all");
   });
 
   // filters to buy categories
-  $('.buy-btn').on('click', function(event) {
+  $('.buy-btn').on('click', function (event) {
     event.preventDefault();
     const $buy = $(event.currentTarget).attr('data-category-id');
     console.log($buy);
@@ -235,7 +251,7 @@ $(document).ready(function () {
   });
 
   // filters to eat categories
-  $('.eat-btn').on('click', function(event) {
+  $('.eat-btn').on('click', function (event) {
     event.preventDefault();
     const $eat = $(event.currentTarget).attr('data-category-id');
     console.log($eat);
@@ -243,7 +259,7 @@ $(document).ready(function () {
   });
 
   // filters to read categories
-  $('.read-btn').on('click', function(event) {
+  $('.read-btn').on('click', function (event) {
     event.preventDefault();
     const $read = $(event.currentTarget).attr('data-category-id');
     console.log($read);
@@ -251,7 +267,7 @@ $(document).ready(function () {
   });
 
   // filters to watch categories
-  $('.watch-btn').on('click', function(event) {
+  $('.watch-btn').on('click', function (event) {
     event.preventDefault();
     const $watch = $(event.currentTarget).attr('data-category-id');
     console.log($watch);
