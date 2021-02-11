@@ -23,7 +23,7 @@ $(document).ready(function () {
     return div.firstChild;
   };
 
-    // creates a new todo row
+  // creates a new todo row
   const createToDoElement = function (todos, category) {
     if (!todos.is_active) {
       return markup =
@@ -31,7 +31,7 @@ $(document).ready(function () {
        <article data-todo-id=${todos.id} class="todo-container-completed">
        <div class="todo-cat-post">
          <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
-         <span class="posted-todo">
+         <span data-category-name=${category.category_name} class="posted-todo">
            <a class="todo-text">${category.category_name} ${todos.title}</a>
            <span class="scheduled-todo-date">
              Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
@@ -49,7 +49,7 @@ $(document).ready(function () {
       <article data-todo-id=${todos.id} class="todo-container todo-${todos.id}">
       <div class="todo-cat-post">
         <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
-        <span class="posted-todo">
+        <span data-category-name=${category.category_name} class="posted-todo">
           <a class="todo-text">${category.category_name} ${todos.title}</a>
           <span class="scheduled-todo-date">
             Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
@@ -65,29 +65,6 @@ $(document).ready(function () {
   `
   };
 
-  // creates a new todo row
-  // const createToDoElement = function (todos, category) {
-  //   return markup = `
-  //       <article data-todo-id=${todos.id} class="todo-container">
-  //       <div class="todo-cat-post">
-  //         <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
-  //         <span class="posted-todo">
-  //           <a class="todo-text">${category.category_name} ${todos.title}</a>
-  //           <span class="scheduled-todo-date">
-  //             Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
-  //           </span>
-  //         </span>
-  //       </div>
-  //       <span class="icons-todo">
-  //         <div class="hello">
-  //           <button class="complete-btn"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
-  //           <button class="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-  //           <button class="delete-btn" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
-  //         </div>
-  //       </span>
-  //       </article>
-  //   `;
-  // }
   // renders todos onto the page
   const renderToDos = function (todos, categories) {
     $('.markup-container').empty();
@@ -120,11 +97,19 @@ $(document).ready(function () {
   };
 
   // loads the todos from the database
-  const loadToDos = function () {
-    const toDoPromise = $.ajax({
-      url: '/api/todos/:id',
-      method: 'GET'
-    });
+  const loadToDos = function (category) {
+    let toDoPromise;
+    if (category === "all") {
+      toDoPromise = $.ajax({
+        url: '/api/todos/:id',
+        method: 'GET'
+      });
+    } else {
+      toDoPromise = $.ajax({
+        url: `/api/todos/:id/${category}`,
+        method: 'GET'
+      })
+    }
     const categoriesPromise = $.ajax({
       url: '/api/categories/',
       method: 'GET'
@@ -136,7 +121,7 @@ $(document).ready(function () {
       })
   };
 
-  loadToDos();
+  loadToDos("all");
 
   //adds a new todo onto the table
   $('.add-todo-form').on('submit', function (event) {
@@ -148,29 +133,13 @@ $(document).ready(function () {
       data: queryString
     })
       .done(() => {
-        loadToDos();
+        loadToDos("all");
         $(this.children[1]).val("");
 
 
       })
       .fail(error => console.log(error));
   });
-
-  // loads the recent todo from the database
-  // const loadRecentToDos = function () {
-  //   $.ajax({
-  //     url: '/api/todos/:id',
-  //     method: 'GET'
-  //   })
-  //     .done((data) => {
-  //       renderRecentToDos(data.todos[data.todos.length - 1]);
-  //     })
-  //     .fail(error => console.log(error));
-  // };
-
-  // const renderRecentToDos = function (todo) {
-  //   $(".to-do-list").append(createToDoElement(todo));
-  // };
 
   // edit form animations
   $("body").on('click', ".edit-btn", () => {
@@ -190,11 +159,8 @@ $(document).ready(function () {
   // deletes a todo from the table
   $(document).on('click', '.delete-btn', function (event) {
     event.preventDefault();
-    // console.log('delete');
-    // console.log(event.currentTarget);
     const $parent = $(event.currentTarget).parent().parent().parent();
     const todoid = $parent.attr('data-todo-id');
-    // console.log(todoid);
     $.ajax({
       url: "/api/todos/delete",
       method: 'POST',
@@ -227,7 +193,7 @@ $(document).ready(function () {
       }
     })
       .done(() => {
-        loadToDos();
+        loadToDos("all");
         $('.edit-background').css("display", "none");
       })
       .fail(error => console.log(error));
@@ -237,20 +203,9 @@ $(document).ready(function () {
   // mark a todo as completed
   $(document).on('click', '.complete-btn', function (event) {
     event.preventDefault();
-    // console.log('complete');
-    // console.log(event.currentTarget);
     const $parent = $(event.currentTarget).parent().parent().parent();
     const todoid = $parent.attr('data-todo-id');
     console.log(todoid);
-    // console.log($parent);
-    // const $deleteButton = $(event.currentTarget).parent().children()[2];
-    // const $editButton = $(event.currentTarget).parent().children()[1];
-    // console.log($deleteButton);
-    // console.log($editButton);
-    // $parent.css("background-color", "green");
-    // $(event.currentTarget).remove();
-    // $deleteButton.remove();
-    // $editButton.remove();
     $.ajax({
       url: "/api/todos/complete",
       method: 'POST',
@@ -259,9 +214,48 @@ $(document).ready(function () {
       }
     })
       .done(() => {
-        loadToDos();
+        loadToDos("all");
       })
       .fail(error => console.log(error));
+  });
+
+  // filters to all categories
+  $('.all-btn').on('click', function(event) {
+    event.preventDefault()
+    console.log('all');
+    loadToDos("all");
+  });
+
+  // filters to buy categories
+  $('.buy-btn').on('click', function(event) {
+    event.preventDefault();
+    const $buy = $(event.currentTarget).attr('data-category-id');
+    console.log($buy);
+    loadToDos("buy");
+  });
+
+  // filters to eat categories
+  $('.eat-btn').on('click', function(event) {
+    event.preventDefault();
+    const $eat = $(event.currentTarget).attr('data-category-id');
+    console.log($eat);
+    loadToDos("eat");
+  });
+
+  // filters to read categories
+  $('.read-btn').on('click', function(event) {
+    event.preventDefault();
+    const $read = $(event.currentTarget).attr('data-category-id');
+    console.log($read);
+    loadToDos("read");
+  });
+
+  // filters to watch categories
+  $('.watch-btn').on('click', function(event) {
+    event.preventDefault();
+    const $watch = $(event.currentTarget).attr('data-category-id');
+    console.log($watch);
+    loadToDos("watch");
   });
 
 });
