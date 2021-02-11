@@ -43,6 +43,7 @@ const widgetsRoutes = require("./routes/widgets");
 const todoRoutes = require("./routes/todoRoutes");
 const loginRoutes = require("./routes/login");
 const categoriesRoutes = require("./routes/categoriesRoutes");
+const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -51,6 +52,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/todos", todoRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/api/categories", categoriesRoutes(db));
+app.use("/logout", logoutRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
@@ -61,12 +63,20 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// route to the dash
 app.get("/dash", (req, res) => {
-  res.render("userDash");
-});
-
-app.get("/login", (req, res) => {
-  res.render("userLogin");
+  if (!req.session.user_id) {
+    res.redirect("/login");
+  }
+  db.query(`SELECT * FROM users
+  WHERE id = $1`, [req.session.user_id])
+  .then(data => {
+    // console.log(data.rows[0]);
+    const name = data.rows[0].name;
+    console.log(name);
+    const templateVars = { name }
+    res.render("userDash", templateVars);
+  })
 });
 
 app.listen(PORT, () => {

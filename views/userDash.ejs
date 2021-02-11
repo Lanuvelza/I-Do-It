@@ -18,9 +18,21 @@
   <!-- Top Navbar -->
   <nav>
     <span class=appName>I-Do-It!</span>
+    <span>Logged in as: <%= name %></span>
     <a>Add-A-Do</a>
-    <a>Logout</a>
+    <form class="logout-btn" method="POST" action="/logout">
+      <button>Logout</button>
+    </form>
   </nav>
+
+  <!-- Filter bar -->
+  <div class="filter">
+    <button class="all-btn">All</button>
+    <button data-category-id=1 class="buy-btn">buy</button>
+    <button data-category-id=2 class="eat-btn">eat</button>
+    <button data-category-id=3 class="read-btn">read</button>
+    <button data-category-id=4 class="watch-btn">watch</button>
+  </div>
 
   <!-- Add-a-note  -->
   <!-- <form class="add-todo-form" action="/api/todos" method="POST">
