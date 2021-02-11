@@ -229,7 +229,7 @@ $(document).ready(function () {
       }
     })
       .done(() => {
-        loadToDos("all");
+        loadToDos("completed");
       })
       .fail(error => console.log(error));
   });
@@ -271,6 +271,12 @@ $(document).ready(function () {
     const $watch = $(event.currentTarget).attr('data-category-id');
     console.log($watch);
     loadToDos("watch");
+  });
+
+  // filters to completed
+  $('.completed-btn').on('click', function (event) {
+    console.log("completed");
+    loadToDos("completed");
   });
 
 });
