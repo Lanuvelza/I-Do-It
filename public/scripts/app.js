@@ -34,13 +34,12 @@ $(document).ready(function () {
          <span data-category-name=${category.category_name} class="posted-todo">
            <a class="todo-text">${category.category_name} ${todos.title}</a>
            <span class="scheduled-todo-date">
-             Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
+             Due: ${todos.scheduled_date.slice(0, 10)} <span class="added-todo-date">Added: ${todos.created_date.slice(0, 10)}</span>
            </span>
          </span>
          <span class="icons-todo">
           <button class="complete-btn" disabled><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
-          <button class="edit-btn" disabled><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-          <button class="delete-btn" disabled><i class="fa fa-trash" aria-hidden="true"></i></button>
+          <button class="delete-btn" ><i class="fa fa-trash" aria-hidden="true"></i></button>
         </span>
        </div>
        </article>`;
@@ -52,7 +51,7 @@ $(document).ready(function () {
         <span data-category-name=${category.category_name} class="posted-todo">
           <a class="todo-text">${category.category_name} ${todos.title}</a>
           <span class="scheduled-todo-date">
-            Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
+            Due: ${todos.scheduled_date.slice(0, 10)} <span class="added-todo-date">Added: ${todos.created_date.slice(0, 10)}</span>
           </span>
         </span>
         <span class="icons-todo">

@@ -18,10 +18,11 @@
   <!-- Top Navbar -->
   <nav>
     <span class=appName>I-Do-It!</span>
-    <span>Logged in as: <%= name %></span>
-    <a>Add-A-Do</a>
+    <span class="logged-user-name">Logged in as: <b>
+        <%= name %>
+      </b></span>
     <form class="logout-btn" method="POST" action="/logout">
-      <button>Logout</button>
+      <button class="logout-btn">Logout</button>
     </form>
   </nav>
 
@@ -40,6 +41,7 @@
     <input type="text" class="note-add" name="new_todo" placeholder="Jot your ToDo"> -->
   <!-- </form> -->
   <!-- type="submit" this was in button below -->
+
   <button class="add-todo-btn"><i class="fa fa-plus" aria-hidden="true"> </i></button>
 
   <!-- Add form -->

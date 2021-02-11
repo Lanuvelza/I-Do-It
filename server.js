@@ -70,13 +70,13 @@ app.get("/dash", (req, res) => {
   }
   db.query(`SELECT * FROM users
   WHERE id = $1`, [req.session.user_id])
-  .then(data => {
-    // console.log(data.rows[0]);
-    const name = data.rows[0].name;
-    console.log(name);
-    const templateVars = { name }
-    res.render("userDash", templateVars);
-  })
+    .then(data => {
+      // console.log(data.rows[0]);
+      const name = data.rows[0].name;
+      console.log(name);
+      const templateVars = { name }
+      res.render("userDash", templateVars);
+    })
 });
 
 app.listen(PORT, () => {
