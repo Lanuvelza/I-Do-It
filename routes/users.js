@@ -6,9 +6,11 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 module.exports = (db) => {
+
+
   // get all users
   router.get("/", (req, res) => {
     db.query(`SELECT * FROM users;`)
@@ -22,6 +24,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
 
   // get all users from a specific id
   router.get("/:id", (req, res) => {
@@ -38,6 +41,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-
   return router;
+
 };

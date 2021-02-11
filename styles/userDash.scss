@@ -19,6 +19,7 @@
 
 .todo-container:hover {
   opacity: 1;
+  border: 4px solid #e44232;
 }
 
 .todo-category {
@@ -121,8 +122,8 @@ userLogin .login-page {
   padding: 8% 0 0;
   margin: auto;
 }
-// add form and button layout
 
+// add form and button layout
 .add-todo-btn {
   background-color: #e44232;
   color: white;
@@ -142,6 +143,10 @@ userLogin .login-page {
   width: 70px;
   border-radius: 50%;
 }
+.add-todo-btn:hover {
+  transform: translateY(-0.25em);
+  box-shadow: 0 0 12px #e44232;
+}
 
 button[type="submit"]:hover {
   background-color: #e44132d4;
@@ -157,6 +162,7 @@ button[type="submit"]:hover {
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   margin-top: 100px;
+  width: 500px;
 }
 
 .add-form-container input {
@@ -198,7 +204,6 @@ button[type="submit"]:hover {
 }
 
 // edit popup form layout
-
 h1 {
   margin: 0;
 }
@@ -266,7 +271,6 @@ input {
 }
 
 // add popup form layout
-
 h1 {
   margin: 0;
 }
@@ -360,8 +364,14 @@ input {
     display: inline-block;
     font-weight: bolder;
     height: 30px;
-    width: 70px;
+    width: 90px;
     border-radius: 22px;
+    outline: 0;
+  }
+
+  button:hover {
+    transform: translateY(-0.25em);
+    box-shadow: 0 0 12px #e44232;
   }
 }
 
@@ -371,6 +381,7 @@ input {
   cursor: pointer;
   color: #575757;
   text-decoration: none;
+  font-size: 25px;
 }
 
 .logout-btn:hover {
@@ -383,4 +394,19 @@ input {
   border-radius: 22px;
   padding: 0px 5px;
   height: 28px;
+}
+
+#date {
+  width: auto;
+  font-size: 17px;
+  font-weight: bolder;
+  position: fixed;
+  top: 120px;
+  right: 5%;
+  text-decoration: underline;
+}
+
+.checking {
+  padding-top: 5px;
+  display: none;
 }
