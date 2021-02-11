@@ -18,8 +18,11 @@
   <!-- Top Navbar -->
   <nav>
     <span class=appName>I-Do-It!</span>
+    <span>Logged in as: <%= name %></span>
     <a>Add-A-Do</a>
-    <a>Logout</a>
+    <form class="logout-btn" method="POST" action="/logout">
+      <button>Logout</button>
+    </form>
   </nav>
 
   <!-- Filter bar -->
