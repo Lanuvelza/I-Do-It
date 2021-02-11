@@ -23,11 +23,11 @@ $(document).ready(function () {
     return div.firstChild;
   };
 
-    // creates a new todo row
+  // creates a new todo container
   const createToDoElement = function (todos, category) {
     if (!todos.is_active) {
       return markup =
-      `
+        `
        <article data-todo-id=${todos.id} class="todo-container-completed">
        <div class="todo-cat-post">
          <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
@@ -65,29 +65,6 @@ $(document).ready(function () {
   `
   };
 
-  // creates a new todo row
-  // const createToDoElement = function (todos, category) {
-  //   return markup = `
-  //       <article data-todo-id=${todos.id} class="todo-container">
-  //       <div class="todo-cat-post">
-  //         <div class="todo-category"><i class="${iconMap[category.category_name]}" aria-hidden="true"></i></div>
-  //         <span class="posted-todo">
-  //           <a class="todo-text">${category.category_name} ${todos.title}</a>
-  //           <span class="scheduled-todo-date">
-  //             Due: ${todos.scheduled_date} <span class="added-todo-date">Added: ${todos.created_date}</span>
-  //           </span>
-  //         </span>
-  //       </div>
-  //       <span class="icons-todo">
-  //         <div class="hello">
-  //           <button class="complete-btn"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
-  //           <button class="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-  //           <button class="delete-btn" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
-  //         </div>
-  //       </span>
-  //       </article>
-  //   `;
-  // }
   // renders todos onto the page
   const renderToDos = function (todos, categories) {
     $('.markup-container').empty();
@@ -140,6 +117,7 @@ $(document).ready(function () {
 
   //adds a new todo onto the table
   $('.add-todo-form').on('submit', function (event) {
+    console.log($(this).serialize());
     event.preventDefault();
     const queryString = $(this).serialize();
     $.ajax({
@@ -148,10 +126,10 @@ $(document).ready(function () {
       data: queryString
     })
       .done(() => {
+        $('.add-background').css("display", "none");
         loadToDos();
+        // console.log("I'M HERE2", data);
         $(this.children[1]).val("");
-
-
       })
       .fail(error => console.log(error));
   });
@@ -184,6 +162,21 @@ $(document).ready(function () {
       && container.has(e.target).length === 0) // ... nor a descendant of the container
     {
       $('.edit-background').css("display", "none");
+    }
+  });
+
+  // add button animations
+  $("body").on('click', ".add-todo-btn", () => {
+    $(window).scrollTop(0)
+    $('.add-background').css("display", "flex");
+  })
+  $(document).mouseup((e) => {
+    const container = $('.add-form-container');
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+      && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+      $('.add-background').css("display", "none");
     }
   });
 

@@ -44,10 +44,11 @@ module.exports = (db) => {
   router.post("/", async (req, res) => {
 
     const user_id = req.session.user_id;
-    console.log(user_id)
-    const title = req.body.new_todo;
+    const title = req.body.new_todo[0];
     const created_date = '07-07-2020';
+    const scheduled_date = req.body.new_todo[1];
     let category_id;
+
 
     //pause and wait for this to complete
     const category = await largestObjectKey(title);
@@ -68,11 +69,12 @@ module.exports = (db) => {
 
     db.query(`
     INSERT INTO todos
-    (user_id, category_id, title, created_date)
+    (user_id, category_id, title, created_date, scheduled_date)
     VALUES
-    ($1, $2, $3, $4);
-    `, [user_id, category_id, title, created_date])
+    ($1, $2, $3, $4, $5);
+    `, [user_id, category_id, title, created_date, scheduled_date])
       .then(data => {
+
         const todos = data.rows;
         res.json({ todos });
       })
