@@ -145,5 +145,75 @@ module.exports = (db) => {
       });
   });
 
+  // retrieves todos from the buy category
+  router.get("/:id/buy", (req, res) => {
+    console.log("here in buy");
+    console.log(req.session.user_id);
+    db.query(`SELECT * FROM todos
+    WHERE user_id = $1 AND category_id = 1
+    ORDER BY is_active ASC, id ASC;`,
+    [req.session.user_id])
+    .then(data => {
+      const todos = data.rows;
+      res.json({ todos });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
+  // retrieves todos from the eat category
+  router.get("/:id/eat", (req, res) => {
+    db.query(`SELECT * FROM todos
+    WHERE user_id = $1 AND category_id = 2
+    ORDER BY is_active ASC, id ASC;`,
+    [req.session.user_id])
+    .then(data => {
+      const todos = data.rows;
+      res.json({ todos });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
+  // retrieves todos from the read category
+  router.get("/:id/read", (req, res) => {
+    db.query(`SELECT * FROM todos
+    WHERE user_id = $1 AND category_id = 3
+    ORDER BY is_active ASC, id ASC;`,
+    [req.session.user_id])
+    .then(data => {
+      const todos = data.rows;
+      res.json({ todos });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
+  // retrieves todos from the watch category
+  router.get("/:id/watch", (req, res) => {
+    db.query(`SELECT * FROM todos
+    WHERE user_id = $1 AND category_id = 4
+    ORDER BY is_active ASC, id ASC;`,
+    [req.session.user_id])
+    .then(data => {
+      const todos = data.rows;
+      res.json({ todos });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
   return router;
 }
