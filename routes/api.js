@@ -9,6 +9,7 @@ const product = 25;
 
 async function fetchBookResults(UI) {
 
+  //fetch url, covert to json. async/await to let data load before doing anything
   const fetchBook = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${UI}`);
   const totalResult = await fetchBook.json();
   return totalResult.totalItems/11.75;
@@ -26,18 +27,14 @@ async function fetchMovieResults(UI) {
   return totalResult.total_results * 1.735;
 };
 
-// async function fetchProductResults(UI) {
-//   const fetchProduct = await fetch(`https://api.rainforestapi.com/request?api_key=${process.env.PRODUCT_API_KEY}&type=search&amazon_domain=amazon.nl&search_term=${UI}&refinement=p_72/3014475011`);
-//   const totalResult = await fetchProduct.json();
-//   return totalResult.search_results.length/2.2;
-// };
 
+//not needed, just for cleaning up
 //populate variables with json data from above
 async function amountOfResults (userInput)  {
    book = await fetchBookResults(userInput);
    recipe = await fetchRecipeResults(userInput);
    movie = await fetchMovieResults(userInput);
-  //  product = await fetchProductResults(userInput);
+
  };
 
 //removed time out and added async/await
@@ -50,7 +47,6 @@ const largestObjectKey = async (userInput) => {
       movie,
       product
     };
-    console.log('which is the highest? is is being returned correct?', newObj)
 
 
     const max = Math.max.apply(null,Object.keys(newObj).map(function(x) {

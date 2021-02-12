@@ -28,6 +28,7 @@ const createElementFromHTML = (htmlString) => {
 
 // creates a new todo container
 const createToDoElement = (todos, category) => {
+  console.log(todos.scheduled_date.slice(0, 10))
   if (!todos.is_active) {
     return markup =
       `
@@ -47,6 +48,7 @@ const createToDoElement = (todos, category) => {
      </div>
      </article>`;
   }
+
   return markup = `
     <article data-todo-id=${todos.id} class="todo-container todo-${todos.id}">
     <div class="todo-cat-post">
