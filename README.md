@@ -19,6 +19,9 @@ completed, can be marked as such and are removed from the main page into their o
 4. Visit `http://localhost:8080/`
 
 
+## Screenshots
+!["Completed filter"](https://github.com/T-Ivings/SmartToDo/blob/master/public/photos/i-do-it1.png?raw=true)
+!["Main Page](https://github.com/T-Ivings/SmartToDo/blob/master/public/photos/idoit.png?raw=true)
 ## Dependencies
 
 - Node 10.x or above
